@@ -1,0 +1,58 @@
+{% extends 'task/navigations/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    
+<div class="jumbotron text-center pt-5" style="background-color: #f8f9fa;">
+    <h1 class="display-0" style="font-family: 'Montserrat', sans-serif; color: #343a40;">Welcome to</h1>
+    <h2 class="display-0" style="font-family: 'Pacifico', cursive; color: #2b9e82;">Task Management Systme</h2>
+    <p class="lead" style="color: #6c757d;">Add and check your task here</p>
+</div>
+  
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Welcome to Task Management System</h2>
+            <p class="card-text">Are you here for personal use or for your company?</p>
+
+            <form method="POST" action="{% url 'authentications:choose_your_group' %}">
+                
+                {% csrf_token %}
+                <div class="form-group col-md-10 mx-auto">
+                    <div class="text-success mx-auto">
+                        {% for msgs in messages %}
+                        <span>
+                            {{ msgs }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    <label class="col-md-5 col-form-label">{{ form.label }}</label>
+                    <div class="col-sm-5 form-control mb-3">
+                        {{ form.group|as_crispy_field }}
+                    </div>  
+    
+                </div>
+                
+                <div class="form-group col-md-10 mx-auto mb-3">                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger ">
+                            <strong>Error:</strong> {{ form.non_field_errors.0 }}
+                        </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-success">Save group</button>
+                    
+                </div>
+            </form>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <a href="{% url 'index' %}" class="btn btn-primary btn-block">View Task</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'viewtask' %}" class="btn btn-secondary btn-block">Dashbord</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

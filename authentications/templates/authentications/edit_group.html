@@ -1,0 +1,34 @@
+{% extends 'task/navigations/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-12 col-md-8 container mt-4">
+    <h1>Edit Your Group</h1>
+    <hr>
+    <form method="POST" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_name" class="form-label">Company Name</label>
+            <input type="text" class="form-control" id="id_name" value="{{ form.instance.name }}" name="{{ form.name.name }}" placeholder="Enter company name">
+        </div>
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="id_description" value="{{ form.instance.description }}" name="{{ form.description.name }}" placeholder="Describe your company">
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_moto" class="form-label">Moto</label>
+            <input type="text" class="form-control" id="id_moto" value="{{ form.instance.moto }}" name="{{ form.moto.name }}" placeholder="Moto of your company">
+        </div>
+        <div class="mb-3">
+            <label for="id_image" class="form-label">Image</label>
+            <input type="file" class="form-control" id="id_image" name="{{ form.image.name }}">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
+{% endblock %}

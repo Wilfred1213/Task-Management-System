@@ -1,0 +1,59 @@
+{% extends 'task/navigations/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block title %} Login Page {% endblock %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2>Sign in</h2>
+            <hr>
+            
+            <form method="POST" action="{% url 'authentications:loggin' %}">
+                
+                {% csrf_token %}
+                <div class="form-group col-md-10 mx-auto">
+                    <div class="text-success mx-auto">
+                        {% for msgs in messages %}
+                        <span>
+                            {{ msgs }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    <label class="col-md-5 col-form-label">{{ form.label }}</label>
+                    <div class="col-sm-5 form-control ">
+                        {{ form.username|as_crispy_field }}
+                    </div>  
+    
+                </div>
+                
+                <div class="form-group col-md-10 mx-auto mb-3">
+                    
+                    <label class="col-md-5 col-form-label">{{ form.label }}</label>
+                    <div class="col-sm-5 form-control ">
+                        {{ form.password|as_crispy_field }}
+                    </div>  
+                  
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> {{ form.non_field_errors.0 }}
+                        </div>
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-primary pt-3 px-5">Sign in</button>
+                    <p class="">Don't have an account?<a href="{% url 'authentications:register_user' %}">Signup</a> </p>
+                    <p class="">Forget Password<a href="">Reset</a> </p>
+                </div>
+                
+                
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

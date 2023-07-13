@@ -1,0 +1,38 @@
+{% extends 'task/navigations/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    
+<div class="jumbotron text-center pt-5" style="background-color: #f8f9fa;">
+    <h1 class="display-0" style="font-family: 'Montserrat', sans-serif; color: #343a40;">Welcome to</h1>
+    <h2 class="display-0" style="font-family: 'Pacifico', cursive; color: #2b9e82;">Task Management Systme</h2>
+    <p class="lead" style="color: #6c757d;">Add and check your task here</p>
+</div>
+  
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Welcome to Task Management System</h2>
+            <p class="card-text">Are you here for personal use or for your company?</p>
+            <div class="row justify-content-center">
+                <p>
+                    Welcome to the Task Management System! As a personal user, you have access to various features to help you stay organized.
+Login to your account using your username and password on the login page.
+Once logged in, you will be redirected to your personal user dashboard.
+From the dashboard, you can create tasks, add to-do items, and keep track of your schedule.
+To create a task, click on the "Create Task" button and provide the necessary details such as task name, description, and due date.
+You can also add to-do items by clicking on the "Add To-Do" button and specifying the task, description, and due date for each item.
+Use the dashboard to manage and update your tasks and to-dos as needed.
+                </p>
+                <div class="col-md-6">
+                    <a href="{% url 'projectform' %}" class="btn btn-primary btn-block">Create a Todo</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'index' %}" class="btn btn-secondary btn-block">View Todo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

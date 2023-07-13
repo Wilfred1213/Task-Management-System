@@ -1,0 +1,187 @@
+{% extends 'task/navigations/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Task Page{% endblock %}
+
+{% block content %}
+
+<!-- assigned project user -->
+<div class="jumbotron text-center pt-5" style="background-color: #f8f9fa;">
+  <h1 class="display-0" style="font-family: 'Montserrat', sans-serif; color: #343a40;">Welcome to</h1>
+  <h2 class="display-0" style="font-family: 'Pacifico', cursive; color: #2b9e82;">Task Management System</h2>
+  <p class="lead" style="color: #6c757d;">Your Dashboard</p>
+</div>
+
+{% if user.is_group_leader or user.is_staff %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 mx-auto">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">My Groups with the Participants</h2>
+          {% for group in all_groups %}
+            <p class="card-text text-danger">Group: {{ group.name }}</p>
+            <div class="container">
+              {% for member in group.members.all %}
+                <div class="lead text-start">{{ member.user }}</div>
+              {% endfor %}
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-6 mx-auto">
+                <a href="{% url 'groupdetail' group.id %}" class="btn btn-secondary btn-block"> View Details</a>
+              </div>
+              <div class="col-md-6 mx-auto">
+                <a href="{% url 'authentications:editgroup' group.id %}" class="btn btn-secondary btn-block"> Edit Group</a>
+              </div>
+
+            </div>
+            
+          {% empty %}
+            <p class="card-text">You are not a member of any groups.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- people you asssign project to -->
+<div class="col-sm-12 col-md-10 col-lg-10 mx-auto pt-5">
+  {% if tasks %}
+  <h4 class="col-md-6 btn mb-3 mx-auto" style="font-size: 1.5rem;">People you assigned Project to</h4>
+
+  
+  <table class="table table-striped table-dark mb-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Project</th>
+        <th scope="col">Description</th>
+        <th scope="col">Create_date</th>
+        <th scope="col">Due date</th>
+        <th scope="col">Status</th>
+        <th scope="col">Assign to</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+      <tr>
+        <th scope="row">{{ forloop.counter}}</th>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.created_at }}</td>
+        <td>{{ task.due_date }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.assigned_to}}</td>
+        
+        <td><a href="{% url 'deletetask' task.id %}" class=" btn-secondary mb-3">delete</a></td>
+      </tr>
+      <tr>
+          
+      {% endfor %}
+        
+    </tbody>
+  </table>
+  {% else %}
+  <div class="text-center mb-5 text-white bg-dark">
+    <p>You did not assign task yet.</p>
+  </div>
+  {% endif %}
+  
+                
+</div>
+<!-- end -->
+{% else %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 mx-auto">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Groups i Belong</h2>
+          {% for group in members %}
+            <p class="card-text text-danger">Group: {{ group.group.name }}</p>
+            <div class="container">
+                <small class="lead text-start">Created by: {{ group.group.created_by }} | {{ group.group.date_created|date }}</small>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-6 mx-auto">
+                <a href="{% url 'groupdetail' group.id %}" class="btn btn-secondary btn-block"> View Details</a>
+              </div>
+              <div class="col-md-6 mx-auto">
+                <a href="{% url 'authentications:editgroup' group.id %}" class="btn btn-secondary btn-block"> Edit Group</a>
+              </div>
+
+            </div>
+          {% empty %}
+            <p class="card-text">You are not a member of any groups.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12 mx-auto">
+      <div class="card mx-auto" style="width: 600px;">
+        <div class="card-body">
+          <h2 class="card-title">Assigned Projects</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Created Date</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Assigned By</th>
+                  <th scope="col">Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for project in assigned %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ project.title }}</td>
+                    <td>{{ project.description }}</td>
+                    <td>{{ project.created_at }}</td>
+                    <td>
+                      <form id="status-form" method="POST" action=".">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ project.id }}">
+                        <div class="btn-group" role="group">
+                          <button type="submit" name="status" value="todo" class="btn btn-primary">To Do</button>
+                          <button type="submit" name="status" value="in progress" class="btn btn-primary">In Progress</button>
+                          <button type="submit" name="status" value="completed" class="btn btn-primary">Completed</button>
+                        </div>
+                      </form>
+                    </td>
+                    <td>{{ project.created_by }}</td>
+                    <td>{{ project.due_date }}</td>
+                  </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="7">No assigned projects.</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="shadow shadow-dark mb-5">
+  {% for message in messages %}
+    <div class="text-center text-danger mb-5">{{ message }}</div>
+  {% endfor %}
+</div>
+
+{% endif %}
+
+
+{% endblock %}

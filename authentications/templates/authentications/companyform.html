@@ -1,0 +1,35 @@
+{% extends 'task/navigations/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-12 col-md-8 container mt-4">
+    <h1>Register your company</h1>
+    <hr>
+    <form method="POST" action="{% url 'authentications:register_company' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_name" class="form-label"></label>
+            <input type="text" class="form-control" id="id_name" name="{{ form.name.name }}" placeholder="Enter company name">
+        </div>
+        <div class="mb-3">
+            <label for="id_description" class="form-label"></label>
+            <input type="text" class="form-control" id="id_description" name="{{ form.description.name }}" placeholder="Describe you company">
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_moto" class="form-label"></label>
+            <input type="text" class="form-control" id="id_moto" name="{{ form.moto.name }}" placeholder="Moto of your company">
+        </div>
+        <div class="mb-3">
+            <label for="id_image" class="form-label"></label>
+            <input type="file" class="form-control" id="id_image" name="{{ form.image.name }}" placeholder="Moto of your company">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% extends 'task/navigations/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    
+<div class="jumbotron text-center pt-5" style="background-color: #f8f9fa;">
+    <h1 class="display-0" style="font-family: 'Montserrat', sans-serif; color: #343a40;">Welcome to</h1>
+    <h2 class="display-0" style="font-family: 'Pacifico', cursive; color: #2b9e82;">Task Management Systme</h2>
+    <p class="lead" style="color: #6c757d;">Add and check your task here</p>
+</div>
+  
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Welcome to Task Management System</h2>
+            <p class="card-text">Are you here for personal use or for your company?</p>
+            <div class="row justify-content-center">
+                <p>
+                    Welcome, group member! As a member of a group, you will receive task assignments and can keep track of your to-do list.
+Login to your account using your username and password on the login page.
+Once logged in, you will be redirected to your group member dashboard.
+From the dashboard, you can view the tasks assigned to you by the group lead.
+Additionally, you can create your own to-do list or check your email for any task assignments sent by the group lead.
+To create a personal to-do item, click on the "Add To-Do" button and provide the task details such as name, description, and due date.
+Use the dashboard to manage and update your personal to-do list.
+                </p>
+                <div class="col-md-6">
+                    <a href="{% url 'viewtask' %}" class="btn btn-primary btn-block">View your task</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'authentications:choose_your_group' %}" class="btn btn-secondary btn-block">Choose Your group</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

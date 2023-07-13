@@ -1,0 +1,40 @@
+{% extends 'task/navigations/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    
+<div class="jumbotron text-center pt-5" style="background-color: #f8f9fa;">
+    <h1 class="display-0" style="font-family: 'Montserrat', sans-serif; color: #343a40;">Welcome to</h1>
+    <h2 class="display-0" style="font-family: 'Pacifico', cursive; color: #2b9e82;">Task Management Systme</h2>
+    <p class="lead" style="color: #6c757d;">Add and check your task here</p>
+</div>
+  
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Welcome to Task Management System</h2>
+            <p class="card-text">Are you here for personal use or for your company?</p>
+            <div class="row justify-content-center">
+                <p>
+                    Hello, group lead! As a leader, you have additional capabilities to manage projects and assign tasks to group members.
+                    Login to your account using your username and password on the login page.
+                    Once logged in, you will be redirected to your group lead dashboard.
+                    From the dashboard, you can create a group by providing a group name and inviting members to sign up for the Task Management System.
+                    After your group members have signed up, you can create projects and assign tasks to specific group members.
+                    To create a project, navigate to the "Projects" section and click on the "Create Project" button.
+                    Specify the project details such as name, description, and due date.
+                    Once the project is created, you can assign tasks to group members by selecting the project and choosing the member to assign the task to.
+                    The assigned tasks will appear in the respective group members' dashboards.
+                </p>
+                <div class="col-md-6">
+                    <a href="{% url 'projectform' %}" class="btn btn-primary btn-block">Create project</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'authentications:register_company' %}" class="btn btn-secondary btn-block">Create Group</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

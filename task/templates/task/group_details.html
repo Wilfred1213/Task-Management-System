@@ -1,0 +1,32 @@
+{% extends 'task/navigations/base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    
+<div class="jumbotron text-center pt-5" style="background-color: #f8f9fa;">
+    <h1 class="display-0" style="font-family: 'Montserrat', sans-serif; color: #343a40;">Welcome to</h1>
+    <h2 class="display-0" style="font-family: 'Pacifico', cursive; color: #2b9e82;">Task Management Systme</h2>
+    <p class="lead" style="color: #6c757d;">Add and check your task here</p>
+</div>
+  
+<div class="container">
+    <div class="card col-md-10">
+        <div class="card-body">
+            <h2 class="card-title">{{ groups.name }}</h2>
+            <p class="card-text">Moto:{{ groups.moto }}</p>
+            <div class="row justify-content-center">
+                <img src="{{ groups.image.url }}" alt="groups image" class="img-thumbnails" style="width: 400px; height: auto;">
+                <p class="card-text">Description: {{ groups.description }}</p>
+
+                <div class="col-md-6">
+                    <a href="{% url 'viewtask' %}" class="btn btn-primary btn-block">Back to dashbord</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'index' %}" class="btn btn-secondary btn-block">Go to todo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

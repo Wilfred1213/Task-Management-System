@@ -1,0 +1,50 @@
+{% extends 'task/navigations/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="col-sm-12 col-md-8 container mt-4 bg-light">
+    <h1>Assign Project</h1>
+    <hr>
+    {% for message in messages %}
+    <div class="text-center text-danger">{{ message }}</div>
+    {% endfor %}
+    <form method="POST" action="{% url 'assigntask' project.id %}" class="mt-4">
+        {% csrf_token %}
+        
+        <div class="form-group shadow p-3 mb-5 bg-dark text-white rounded">
+            <label for="id_title"></label>
+            {{ form.title|as_crispy_field }}
+        </div>
+        
+        <div class="form-group shadow p-3 mb-5 bg-dark text-white rounded">
+            <label for="id_description"></label>
+            {{ form.description|as_crispy_field }}
+        </div>
+        <div class="form-group shadow p-3 mb-5 bg-dark text-white rounded">
+            <label for="id_assigned_to"></label>
+            {{ form.project|as_crispy_field }}
+        </div>
+        
+        <div class="form-group shadow p-3 mb-5 bg-dark text-white rounded">
+            <label for="id_status"></label>
+            {{ form.status|as_crispy_field }}
+        </div>
+        
+        <div class="form-group shadow p-3 mb-5 bg-dark text-white rounded">
+            <label for="id_assigned_to"></label>
+            {{ form.assigned_to|as_crispy_field }}
+        </div>
+        
+        <div class="form-group shadow p-3 mb-5 bg-dark text-white rounded">
+            <label for="id_due_date"></label>
+            {{ form.due_date|as_crispy_field }}
+        </div>
+        
+        <button type="submit" class="col-md-12 btn btn-primary  mb-5">Create</button>
+    </form>
+</div>
+{% endblock %}
